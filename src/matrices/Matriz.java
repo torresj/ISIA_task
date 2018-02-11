@@ -127,6 +127,30 @@ public static double determinante(double[][] matriz)
         } 
         return matrizResultante; 
     } 
+    
+    public static Matriz multiplicarDosMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles {  
+
+        int rowA, colA, rowB, colB;
+        rowA = a.datos[0].length;
+        colA = a.datos.length;
+        rowB = b.datos[0].length;
+        colB = b.datos.length;
+        
+        if(colA != rowB){
+            throw new DimensionesIncompatibles("El número de columnas de la matriz A debe ser igual al número de filas de la matriz B ");
+        }
+        
+        Matriz mResult = new Matriz(rowA, colB, false);
+        for (int i = 0; i < rowA; i++) {
+            for (int j = 0; j < colB; j++) {
+                mResult.datos[j][i]= 0;
+                for (int k = 0; k < colA; k++) {
+                    mResult.datos[j][i] += a.datos[k][i] * b.datos[j][k];
+                }
+            }
+        }
+        return mResult;
+    }
 
     @Override
     public String toString(){
